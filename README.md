@@ -131,7 +131,6 @@ pub fn get_spawn_points(ctx: &ReducerContext) -> Result<(), String> {
 
 ## Client Setup
 
-The Rust client SDK requires an event loop to process messages. Without it, subscriptions never apply and you won't get any data.
 
 ```rust
 use spacetimedb_sdk::{DbContext, Table};
@@ -154,9 +153,6 @@ fn main() {
 
     // THIS IS REQUIRED - starts processing messages
     conn.run_threaded();
-
-    // Wait a moment for subscription to apply
-    std::thread::sleep(Duration::from_millis(500));
 
     // Now you can query data
     let maps: Vec<_> = conn.db.tiled_map().iter().collect();
@@ -224,17 +220,17 @@ The `zstd-sys` dependency needs LLVM/clang for WASM compilation. Install LLVM an
 
 ## Supported Tiled Features
 
-- ✅ Orthogonal, isometric, staggered, and hexagonal maps
-- ✅ Tile layers (finite and infinite)
-- ✅ Object layers with rectangles, ellipses, and points
-- ✅ Custom properties (string, int, float, bool, color, file)
-- ✅ Tile flipping (horizontal, vertical, diagonal)
-- ✅ Multiple tilesets per map
-- ✅ CSV tile data encoding
-- ❌ Base64/gzip tile encoding (not yet)
-- ❌ Polygon/polyline vertices (shape type only)
-- ❌ Tile animations
-- ❌ Wang sets
+- [x] Orthogonal, isometric, staggered, and hexagonal maps
+- [x] Tile layers (finite and infinite)
+- [x] Object layers with rectangles, ellipses, and points
+- [x] Custom properties (string, int, float, bool, color, file)
+- [x] Tile flipping (horizontal, vertical, diagonal)
+- [x] Multiple tilesets per map
+- [x] CSV tile data encoding
+- [ ] Base64/gzip tile encoding (not yet)
+- [ ] Polygon/polyline vertices (shape type only)
+- [ ] Tile animations
+- [ ] Wang sets
 
 ## License
 

@@ -47,7 +47,7 @@ jobs:
         run: cargo package --no-verify
 
       - name: Publish to crates.io
-        run: cargo publish --token ${{ secrets.CARGO_TOKEN }}
+        run: cargo publish --token ${{ secrets.CRATES_IO_TOKEN }}
         continue-on-error: true
 
       - name: Extract version

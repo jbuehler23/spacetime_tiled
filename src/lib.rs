@@ -266,13 +266,13 @@ pub struct TiledProperty {
 pub fn load_tmx_map(ctx: &ReducerContext, map_name: &str, tmx_path: &str) -> Result<u32, String> {
     use tiled::Loader;
 
-    log::info!("Loading TMX map '{}' from {}", map_name, tmx_path);
+    log::info!("Loading TMX map '{map_name}' from {tmx_path}");
 
     // Load the TMX file
     let mut loader = Loader::new();
     let map = loader
         .load_tmx_map(tmx_path)
-        .map_err(|e| format!("Failed to load TMX file: {}", e))?;
+        .map_err(|e| format!("Failed to load TMX file: {e}"))?;
 
     load_tmx_map_internal(ctx, map_name, map)
 }
@@ -314,7 +314,7 @@ pub fn load_tmx_map_from_str(
     use quick_xml::events::Event;
     use quick_xml::Reader;
 
-    log::info!("Parsing TMX map '{}' from string", map_name);
+    log::info!("Parsing TMX map '{map_name}' from string");
 
     let mut reader = Reader::from_str(tmx_content);
     reader.config_mut().trim_text(true);
@@ -348,7 +348,7 @@ pub fn load_tmx_map_from_str(
                         // Parse map attributes
                         for attr in e.attributes() {
                             let attr =
-                                attr.map_err(|e| format!("Failed to parse attribute: {}", e))?;
+                                attr.map_err(|e| format!("Failed to parse attribute: {e}"))?;
                             match attr.key.as_ref() {
                                 b"width" => {
                                     width = std::str::from_utf8(&attr.value)
@@ -396,7 +396,7 @@ pub fn load_tmx_map_from_str(
 
                         for attr in e.attributes() {
                             let attr =
-                                attr.map_err(|e| format!("Failed to parse attribute: {}", e))?;
+                                attr.map_err(|e| format!("Failed to parse attribute: {e}"))?;
                             match attr.key.as_ref() {
                                 b"name" => {
                                     name = std::str::from_utf8(&attr.value).unwrap().to_string()
@@ -445,7 +445,7 @@ pub fn load_tmx_map_from_str(
                                 image_width: None,
                                 image_height: None,
                             })
-                            .map_err(|e| format!("Failed to insert tileset: {}", e))?;
+                            .map_err(|e| format!("Failed to insert tileset: {e}"))?;
 
                         tileset_counter += 1;
                     }
@@ -459,7 +459,7 @@ pub fn load_tmx_map_from_str(
 
                         for attr in e.attributes() {
                             let attr =
-                                attr.map_err(|e| format!("Failed to parse attribute: {}", e))?;
+                                attr.map_err(|e| format!("Failed to parse attribute: {e}"))?;
                             match attr.key.as_ref() {
                                 b"name" => {
                                     name = std::str::from_utf8(&attr.value).unwrap().to_string()
@@ -503,7 +503,7 @@ pub fn load_tmx_map_from_str(
                                 offset_y,
                                 z_order: layer_id,
                             })
-                            .map_err(|e| format!("Failed to insert layer: {}", e))?;
+                            .map_err(|e| format!("Failed to insert layer: {e}"))?;
 
                         current_layer_id = Some(layer_id);
                         current_layer_type = "tile".to_string();
@@ -518,7 +518,7 @@ pub fn load_tmx_map_from_str(
 
                         for attr in e.attributes() {
                             let attr =
-                                attr.map_err(|e| format!("Failed to parse attribute: {}", e))?;
+                                attr.map_err(|e| format!("Failed to parse attribute: {e}"))?;
                             match attr.key.as_ref() {
                                 b"name" => {
                                     name = std::str::from_utf8(&attr.value).unwrap().to_string()
@@ -562,7 +562,7 @@ pub fn load_tmx_map_from_str(
                                 offset_y,
                                 z_order: layer_id,
                             })
-                            .map_err(|e| format!("Failed to insert layer: {}", e))?;
+                            .map_err(|e| format!("Failed to insert layer: {e}"))?;
 
                         current_layer_id = Some(layer_id);
                         current_layer_type = "object".to_string();
@@ -581,7 +581,7 @@ pub fn load_tmx_map_from_str(
 
                             for attr in e.attributes() {
                                 let attr =
-                                    attr.map_err(|e| format!("Failed to parse attribute: {}", e))?;
+                                    attr.map_err(|e| format!("Failed to parse attribute: {e}"))?;
                                 match attr.key.as_ref() {
                                     b"name" => {
                                         name = std::str::from_utf8(&attr.value).unwrap().to_string()
@@ -649,7 +649,7 @@ pub fn load_tmx_map_from_str(
                                     visible,
                                     shape: shape.to_string(),
                                 })
-                                .map_err(|e| format!("Failed to insert object: {}", e))?;
+                                .map_err(|e| format!("Failed to insert object: {e}"))?;
                         }
                     }
                     b"data" => {
@@ -696,7 +696,7 @@ pub fn load_tmx_map_from_str(
                                     flip_v,
                                     flip_d,
                                 })
-                                .map_err(|e| format!("Failed to insert tile: {}", e))?;
+                                .map_err(|e| format!("Failed to insert tile: {e}"))?;
                         }
                     }
                 }
@@ -712,7 +712,7 @@ pub fn load_tmx_map_from_str(
                 _ => {}
             },
             Ok(Event::Eof) => break,
-            Err(e) => return Err(format!("XML parse error: {}", e)),
+            Err(e) => return Err(format!("XML parse error: {e}")),
             _ => {}
         }
         buf.clear();
@@ -731,9 +731,9 @@ pub fn load_tmx_map_from_str(
             orientation,
             background_color,
         })
-        .map_err(|e| format!("Failed to insert map: {}", e))?;
+        .map_err(|e| format!("Failed to insert map: {e}"))?;
 
-    log::info!("Successfully loaded map '{}' from string", map_name);
+    log::info!("Successfully loaded map '{map_name}' from string");
     Ok(map_id)
 }
 
@@ -765,7 +765,7 @@ fn load_tmx_map_internal(
             orientation,
             background_color,
         })
-        .map_err(|e| format!("Failed to insert map: {}", e))?;
+        .map_err(|e| format!("Failed to insert map: {e}"))?;
 
     log::info!(
         "Created map {} ({}x{} tiles)",
@@ -796,7 +796,7 @@ fn load_tmx_map_internal(
                 image_width: tileset.image.as_ref().map(|img| img.width as u32),
                 image_height: tileset.image.as_ref().map(|img| img.height as u32),
             })
-            .map_err(|e| format!("Failed to insert tileset: {}", e))?;
+            .map_err(|e| format!("Failed to insert tileset: {e}"))?;
 
         log::debug!(
             "Added tileset '{}' at index {}",
@@ -806,8 +806,7 @@ fn load_tmx_map_internal(
     }
 
     // Store layers
-    let mut layer_counter = 0u32;
-    for layer in map.layers() {
+    for (layer_index, layer) in map.layers().enumerate() {
         let layer_id = generate_layer_id(ctx)?;
         let layer_type = match layer.layer_type() {
             tiled::LayerType::Tiles(_) => "tile",
@@ -827,9 +826,9 @@ fn load_tmx_map_internal(
                 opacity: layer.opacity,
                 offset_x: layer.offset_x as i32,
                 offset_y: layer.offset_y as i32,
-                z_order: layer_counter,
+                z_order: layer_index as u32,
             })
-            .map_err(|e| format!("Failed to insert layer: {}", e))?;
+            .map_err(|e| format!("Failed to insert layer: {e}"))?;
 
         log::debug!(
             "Added {} layer '{}' (id: {})",
@@ -850,14 +849,12 @@ fn load_tmx_map_internal(
 
         // Store layer properties
         store_properties(ctx, "layer", layer_id as u64, &layer.properties)?;
-
-        layer_counter += 1;
     }
 
     // Store map properties
     store_properties(ctx, "map", map_id as u64, &map.properties)?;
 
-    log::info!("Successfully loaded map '{}'", map_name);
+    log::info!("Successfully loaded map '{map_name}'");
 
     Ok(map_id)
 }
@@ -889,14 +886,14 @@ fn store_tile_layer(
                                 flip_v: tile.flip_v,
                                 flip_d: tile.flip_d,
                             })
-                            .map_err(|e| format!("Failed to insert tile: {}", e))?;
+                            .map_err(|e| format!("Failed to insert tile: {e}"))?;
 
                         tile_count += 1;
                     }
                 }
             }
 
-            log::debug!("Stored {} tiles in layer {}", tile_count, layer_id);
+            log::debug!("Stored {tile_count} tiles in layer {layer_id}");
         }
         tiled::TileLayer::Infinite(infinite_layer) => {
             let mut tile_count = 0;
@@ -924,7 +921,7 @@ fn store_tile_layer(
                                     flip_v: tile.flip_v,
                                     flip_d: tile.flip_d,
                                 })
-                                .map_err(|e| format!("Failed to insert tile: {}", e))?;
+                                .map_err(|e| format!("Failed to insert tile: {e}"))?;
 
                             tile_count += 1;
                         }
@@ -932,11 +929,7 @@ fn store_tile_layer(
                 }
             }
 
-            log::debug!(
-                "Stored {} tiles from infinite layer {}",
-                tile_count,
-                layer_id
-            );
+            log::debug!("Stored {tile_count} tiles from infinite layer {layer_id}");
         }
     }
 
@@ -977,7 +970,7 @@ fn store_object_layer(
                 visible: object.visible,
                 shape: shape_str.to_string(),
             })
-            .map_err(|e| format!("Failed to insert object: {}", e))?;
+            .map_err(|e| format!("Failed to insert object: {e}"))?;
 
         // Store object properties
         store_properties(ctx, "object", object_id, &object.properties)?;
@@ -1029,7 +1022,7 @@ fn store_properties(
                 value: value_str,
                 value_type: value_type.to_string(),
             })
-            .map_err(|e| format!("Failed to insert property: {}", e))?;
+            .map_err(|e| format!("Failed to insert property: {e}"))?;
     }
 
     Ok(())
@@ -1052,15 +1045,15 @@ fn generate_tileset_id(ctx: &ReducerContext) -> Result<u32, String> {
 }
 
 fn generate_tile_id(ctx: &ReducerContext) -> Result<u64, String> {
-    Ok(ctx.db.tiled_tile().count() as u64)
+    Ok(ctx.db.tiled_tile().count())
 }
 
 fn generate_object_id(ctx: &ReducerContext) -> Result<u64, String> {
-    Ok(ctx.db.tiled_object().count() as u64)
+    Ok(ctx.db.tiled_object().count())
 }
 
 fn generate_property_id(ctx: &ReducerContext) -> Result<u64, String> {
-    Ok(ctx.db.tiled_property().count() as u64)
+    Ok(ctx.db.tiled_property().count())
 }
 
 // Note: This library only provides table definitions and the load_tmx_map() function.

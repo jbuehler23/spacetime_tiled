@@ -1,0 +1,23 @@
+[package]
+name = "spacetime_tiled"
+version = "0.1.0"
+edition = "2021"
+authors = ["Joe Buehler <jbuehler23@gmail.com>"]
+description = "SpacetimeDB integration for loading Tiled map editor files"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/jbuehler23/spacetime_tiled"
+homepage = "https://github.com/jbuehler23/spacetime_tiled"
+documentation = "https://docs.rs/spacetime_tiled"
+readme = "README.md"
+keywords = ["spacetimedb", "tiled", "game", "map"]
+categories = ["game-development", "database"]
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+spacetimedb = "1.4.0"
+tiled = "0.15.0"
+quick-xml = "0.36"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4"

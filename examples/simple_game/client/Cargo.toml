@@ -1,0 +1,12 @@
+[package]
+name = "simple_game_client"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+spacetimedb-sdk = "1.4.0"
+anyhow = "1.0"
+
+[build-dependencies]
+# Add this if you want to auto-generate bindings at build time
+# For now, we'll use manual generation via spacetime CLI

@@ -1,0 +1,12 @@
+[package]
+name = "simple_game_server"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+spacetimedb = "1.4.0"
+spacetime_tiled = { path = "../../.." }
+log = "0.4"

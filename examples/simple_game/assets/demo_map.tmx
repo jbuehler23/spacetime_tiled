@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="6">
+ <properties>
+  <property name="music" value="overworld_theme.mp3"/>
+  <property name="weather" value="sunny"/>
+ </properties>
+ <tileset firstgid="1" name="terrain" tilewidth="32" tileheight="32" tilecount="4" columns="2">
+  <image source="tileset.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="grass"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="wall"/>
+    <property name="collision" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="water"/>
+    <property name="damage" type="int" value="1"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="path"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer id="1" name="Ground" width="10" height="10">
+  <properties>
+   <property name="description" value="Base terrain layer"/>
+  </properties>
+  <data encoding="csv">
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,1,4,4,1,1,1,1,
+1,1,1,1,4,4,1,1,1,1,
+1,1,1,1,4,4,1,1,1,1,
+1,1,1,1,1,1,1,1,1,1,
+1,1,1,3,3,3,3,1,1,1,
+1,1,1,3,3,3,3,1,1,1,
+1,1,1,1,1,1,1,1,1,1
+</data>
+ </layer>
+ <layer id="2" name="Collision" width="10" height="10">
+  <properties>
+   <property name="collision_layer" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+2,2,2,2,2,2,2,2,2,2,
+2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,
+2,0,0,2,0,0,2,0,0,2,
+2,0,0,2,0,0,2,0,0,2,
+2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,
+2,2,2,2,2,2,2,2,2,2
+</data>
+ </layer>
+ <objectgroup id="3" name="Objects">
+  <properties>
+   <property name="description" value="Game objects and spawn points"/>
+  </properties>
+  <object id="1" name="PlayerSpawn" type="spawn" x="64" y="64" width="32" height="32">
+   <properties>
+    <property name="spawn_type" value="player"/>
+    <property name="team" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="2" name="EnemySpawn1" type="spawn" x="224" y="128" width="32" height="32">
+   <properties>
+    <property name="spawn_type" value="enemy"/>
+    <property name="enemy_type" value="goblin"/>
+    <property name="level" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="3" name="EnemySpawn2" type="spawn" x="224" y="224" width="32" height="32">
+   <properties>
+    <property name="spawn_type" value="enemy"/>
+    <property name="enemy_type" value="skeleton"/>
+    <property name="level" type="int" value="2"/>
+   </properties>
+  </object>
+  <object id="4" name="Chest" type="item" x="128" y="192" width="32" height="32">
+   <properties>
+    <property name="contents" value="gold_coin"/>
+    <property name="amount" type="int" value="100"/>
+    <property name="locked" type="bool" value="false"/>
+   </properties>
+  </object>
+  <object id="5" name="TriggerZone" type="trigger" x="96" y="224" width="96" height="64">
+   <properties>
+    <property name="action" value="show_message"/>
+    <property name="message" value="You have entered the danger zone!"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

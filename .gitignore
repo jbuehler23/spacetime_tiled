@@ -1,0 +1,20 @@
+# Rust build artifacts
+/target
+Cargo.lock
+
+# Development files
+CLAUDE.md
+*.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Client bindings (generated)
+examples/*/client/src/module_bindings/
